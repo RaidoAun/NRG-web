@@ -8,7 +8,7 @@ import Navbar from "@/components/Navbar.vue"
 export default {
   data(){
     return {
-      pesuPesemine: true, //DATABASE
+      pesuPesemine: false, //DATABASE
       user: {admin: false}
     }
   },

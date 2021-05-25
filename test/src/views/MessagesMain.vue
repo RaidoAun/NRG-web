@@ -18,13 +18,34 @@ export default {
   },
   methods:{
     addMessage(message){
-        this.messages = [...this.messages, message]
+      this.axios.post('/api/messages', message)
+      this.getData()
+    },
+    getData(){
+      this.axios.get('/api/messages')
+          .then((response) => {
+            // handle
+            //console.log(response)
+            this.messages = response.data
+            //this.$set(this.result, response.data, response.data)
+
+          })
+          .catch((error) => {
+            // handle error
+            console.log(error)
+          })
+
     }
   },
   data(){
       return {
-          messages: []
+          messages: [],
+          result: []
       }
-  }
+  },
+  mounted() {
+      this.getData();
+
+  },
 }
 </script>

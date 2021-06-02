@@ -1,8 +1,6 @@
 <template>
     <div class="InputForm">
         <div class="form-group">
-            <label>Auto mudel</label>
-            <input type="text" class="form-control" v-model="mudel">
             <label>Auto nr</label>
             <input type="text" class="form-control" v-model="autonr">
         </div>
@@ -24,7 +22,7 @@ export default {
     },
     methods:{
         outputText(){
-            let output = {mudel: this.mudel,autonr: this.autonr}
+            let output = {autonr: this.autonr}
             this.$emit("inputform-output", output)
         },
     }

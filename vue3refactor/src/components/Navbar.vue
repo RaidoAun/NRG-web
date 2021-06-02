@@ -1,17 +1,18 @@
 <template>
   <div id="nav">
     <router-link to="/">Home</router-link> |
-    <router-link to="/profile">Profile</router-link> |
-    <button disabled="disabled" :class= pesuPesemine.class>{{pesuPesemine.text}} </button>
+    <router-link to="/parkimine">Profile</router-link> |
   </div>
-  <router-view/>
 </template>
 
 <script>
 export default {
+    /*
+    <button disabled="disabled" :class= pesuPesemine.class>{{pesuPesemine.text}} </button>
     props:{
         pesupesemineBool: Boolean
     },
+
     data(){
         return{
             pesuPesemineButtonClass: "btn btn-primary"
@@ -33,5 +34,6 @@ export default {
             return out
         }
     }
+    */
 }
 </script>

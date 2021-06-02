@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">
+  <div class="Parkimine">
     <div class="container-fluid">
         <div class="row">
             <div class="col-8 offset-1">
@@ -9,6 +9,7 @@
             </div>
         </div>
     </div>
+    <ParkingTable/>
   </div>
 </template>
 
@@ -16,10 +17,12 @@
 
 import Button from '@/components/Button.vue'
 import InputForm from '@/components/InputForm.vue'
+import ParkingTable from '@/components/ParkingTable.vue'
 export default {
   components:{
     Button,
-    InputForm
+    InputForm,
+    ParkingTable
   },
   data(){
     return {

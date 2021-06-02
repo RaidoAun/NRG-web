@@ -1,18 +1,29 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <b-button variant = "success"  @click="peeterPaan()">Peeter Paan</b-button>
+    <b-button variant="success"  @click="peetriIsa()">Peetri isa</b-button>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+//import Button from '@/components/Button.vue'
 
 export default {
-  name: 'Home',
+  props:{
+    user: Object
+  },
   components: {
-    HelloWorld
+    //Button
+  },
+  methods: {
+    peeterPaan(){
+      this.user.id = 1
+    },
+    peetriIsa(){
+      this.user.id = 2
+    }
   }
 }
 </script>

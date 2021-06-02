@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link to="/user-select">Home</router-link> |
       <router-link to="/parkimine">Parkimine</router-link>
     </div>
-    <router-view/>
+    <router-view :user.sync = "user"/>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
 export default {
   data: ()=>{
     return {
-      user: {admin: false}
+      user: {id:1}
     }
   },
   components:{

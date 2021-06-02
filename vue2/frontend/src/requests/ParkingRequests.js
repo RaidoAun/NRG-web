@@ -1,17 +1,34 @@
 import axios from 'axios'
 
 export default{
-    async getData() {
-        let data
-        await axios.get('/api/parking')
-        .then((response) => {
-          data = response.data
-        })
-        .catch((error) => {
-          // handle error
-          console.log(error)
-        })
-        console.log(data)
-        return data
+    async getData(user) {
+      let data
+      await axios.get('/api/parking', {params:{id:user.id}})
+      .then((response) => {
+        data = response.data
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+      return data
+    },
+    putCarData(data){
+      axios.put('/api/parking/addrow', data)
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+    deleteRowById(id){
+      axios.put('/api/parking/deleterow', {id:id})
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+    editRowByid(id){
+      axios.put('/api/parking/editrow', {id:id})
+      .catch((error) => {
+        console.log(error)
+      })
     }
 }
+

@@ -6,8 +6,8 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: '/user-select',
+    name: 'User_Select',
     component: Home
   },
   {

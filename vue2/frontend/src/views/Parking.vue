@@ -3,42 +3,51 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-8 offset-1">
-                <Button :text=addCarButtonText :btnclass = addCarButtonClass @button-click="toggleInputForm"></Button>
+                <b-button :variant="addCarButtonClass"  @click="toggleInputForm()">{{addCarButtonText}}</b-button>
                 <InputForm v-show="showinputfields" @inputform-output="sendNewCarDataToServer"></InputForm>
             </div>
         </div>
     </div>
-    <ParkingTable/>
+    <ParkingTable :user.sync = "user" ref="parkingTable"/>
   </div>
 </template>
 <script>
-import Button from '@/components/Button.vue'
+//import Button from '@/components/Button.vue'
 import InputForm from '@/components/InputForm.vue'
 import ParkingTable from '@/components/ParkingTable.vue'
+
+import ParkingRequests from  '@/requests/ParkingRequests.js'
+
 export default {
   components: { 
       ParkingTable, 
       InputForm,
-      Button
+      //Button
       },
     props:{
+      user: Object
     },
     data:()=>{
     return {
       showinputfields: false,
-      addCarButtonClass: "btn btn-primary",
+      addCarButtonClass: "primary",
       addCarButtonText: "Lisa auto"
     }
   },
     methods: {
     toggleInputForm(){
       this.showinputfields = !this.showinputfields
-      this.addCarButtonClass = this.showinputfields ? "btn btn-danger": "btn btn-primary"
+      this.addCarButtonClass = this.showinputfields ? "danger": "primary"
       this.addCarButtonText = this.showinputfields ? "Peida" : "Lisa auto"
     },
-    sendNewCarDataToServer(text){
-      console.log(text)
+    sendNewCarDataToServer(data){
+      data.user_id = this.user.id
+      ParkingRequests.putCarData(data)
+      this.$refs.parkingTable.getTableData()
     }
-    }
+  },
+  mounted(){
+
+  }
 }
 </script>

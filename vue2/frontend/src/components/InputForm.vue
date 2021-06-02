@@ -1,30 +1,27 @@
 <template>
     <div class="InputForm">
         <div class="form-group">
-            <label>Auto mudel</label>
-            <input type="text" class="form-control" v-model="mudel">
             <label>Auto nr</label>
-            <input type="text" class="form-control" v-model="autonr">
+            <input type="text" class="form-control" v-model="car_nr">
         </div>
-        <Button btnclass = "btn btn-success" text = "Lisa / confirm" @button-click="outputText"></Button>
+        <b-button variant="success"  @click="outputText()">Lisa</b-button>
     </div>
 </template>
 
 <script>
-import Button from "@/components/Button.vue"
+//import Button from "@/components/Button.vue"
 export default {
     components: {
-        Button
+        //Button
     },
-    data(){
+    data:()=>{
         return{
-            mudel:'',
-            autonr:''
+            car_nr:''
         }
     },
     methods:{
         outputText(){
-            let output = {mudel: this.mudel,autonr: this.autonr}
+            let output = {car_nr: this.car_nr}
             this.$emit("inputform-output", output)
         },
     }

@@ -7,6 +7,7 @@ export class Database{
   parking_select_user_data = "select * from parking where user_id = ?"
   parking_delete_row = "DELETE FROM parking WHERE id = ?"
   parking_edit_row = "UPDATE parking SET validation_status = 1 WHERE id = ?"
+  parking_select_by_id = "select * from parking where id = ?"
   constructor(){
       this.con = mysql.createConnection({
           host: process.env.DB_HOST,
@@ -63,6 +64,13 @@ export class Database{
     let values = [id]
     this.con.query(this.parking_edit_row, [values], function (err, result) {
       if (err) throw err;
+    })
+  }
+  getParkingDataByRowId(id, callback){
+    let values = [id]
+    this.con.query(this.parking_select_by_id, [values], function (err, result, fields) {
+      if (err) throw err;
+      callback(result)
     })
   }
 }

@@ -18,8 +18,8 @@ export default{
         console.log(error)
       })
     },
-    deleteRowById(id){
-      axios.put('/api/parking/deleterow', {id:id})
+    deleteRowById(row_id,user_id){
+      axios.put('/api/parking/deleterow', {row_id:row_id,user_id:user_id})
       .catch((error) => {
         console.log(error)
       })

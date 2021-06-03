@@ -1,14 +1,28 @@
 <template>
     <div class="Table">
-        <b-table striped hover :items="items" :fields="fields">
-          <template #cell(index)="data">
-            {{ data.index + 1 }}
-          </template>
-          <template #cell(validation_status)="row" v-if="is_admin">
-            <b-button variant = "danger" size="sm" @click="deleteRow(row)">Kustuta</b-button>
-            <b-button variant = "success" size="sm" @click="editRow(row)" v-if="row.item[row.field.key] === 'kinnitamata' ? 'false' : 'true' === true">Kinnita</b-button>
-          </template>
-        </b-table>
+      <b-col lg="6" class="my-1">
+          <b-input-group size="sm">
+            <b-form-input
+              id="filter-input"
+              v-model="filter"
+              type="search"
+              placeholder="Type to Search"
+            ></b-form-input>
+          </b-input-group>
+      </b-col>
+      {{filter}}
+      <b-table striped hover :items="items" :fields="fields" :filter="filter">
+        <template #cell(index)="data">
+          {{ data.index + 1 }}
+        </template>
+        <template #cell(validation_status)="row" v-if="is_admin">
+          <b-button variant = "danger" size="sm" @click="deleteRow(row)">Kustuta</b-button>
+          <b-button variant = "success" size="sm" @click="editRow(row)" v-if="row.item[row.field.key] === 'kinnitamata' ? 'false' : 'true' === true">Kinnita</b-button>
+        </template>
+        <template #cell(action)="row" v-if="!is_admin">
+          <b-button variant = "danger" size="sm" @click="deleteRow(row)">Kustuta</b-button>
+        </template>
+      </b-table>
     </div>
 </template>
 <script>
@@ -17,7 +31,8 @@ import UsersRequests from  '@/requests/UsersRequests.js'
 export default {
 
     props:{
-      user:Object
+      user:Object,
+      filter: String
     },
 
     data:()=> {
@@ -29,7 +44,7 @@ export default {
     },
     methods: {
       deleteRow(row){
-        ParkingRequests.deleteRowById(row.item.id)
+        ParkingRequests.deleteRowById(row.item.id, this.user.id)
         this.getTableData()
       },
       editRow(row){
@@ -71,6 +86,11 @@ export default {
               key:'validation_status',
               label:'Staatus',
               sortable: true
+            },
+            {
+              key:'action',
+              label:'',
+              sortable: false
             }
           ]
         }

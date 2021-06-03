@@ -1,5 +1,5 @@
 import {Database} from './database.js'
-import express from 'express'
+import express, { query } from 'express'
 const PORT = 5001
 const app = express()
 app.use(express.json())
@@ -16,7 +16,7 @@ app.get('/api/parking', (req,res)=>{
       res.status(200).send(data)
       return
     }
-
+    
     user = data[0]
     if (user.is_admin === 1){
       db.getParkingData((data)=>{
@@ -48,9 +48,35 @@ app.get('/api/users', (req,res)=>{
   })
 })
 app.put('/api/parking/deleterow',(req,res)=>{
-  let row = req.body
-  db.deleteParkingRowById(row.id)
-  res.status(200).send("OK")
+  let userid = req.body.user_id
+  let rowid = req.body.row_id
+  let user
+  db.getUserById(userid,(data)=>{
+    if (data.length === 0){
+      res.status(200).send(data)
+      return
+    }
+
+    user = data[0]
+    if (user.is_admin === 1){
+      db.deleteParkingRowById(rowid)
+      res.status(200).send("OK")
+    }
+    if (user.is_admin === 0){
+      db.getParkingDataByRowId(rowid, (data)=>{
+        if (data[0] === undefined) {
+          res.status(200).send(data)
+          return
+        } 
+        if (data[0].user_id === userid){
+          db.deleteParkingRowById(rowid)
+          res.status(200).send("OK")
+        }else{
+          res.status(401).send("")
+        }
+      })
+    }
+  })
 })
 app.put('/api/parking/editrow',(req,res)=>{
   let row = req.body

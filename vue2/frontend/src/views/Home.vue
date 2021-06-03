@@ -3,6 +3,7 @@
 
     <b-button variant = "success"  @click="peeterPaan()">Peeter Paan</b-button>
     <b-button variant="success"  @click="peetriIsa()">Peetri isa</b-button>
+    <b-button variant="success"  @click="toomas()">Toomas Mahlane</b-button>
   </div>
 </template>
 
@@ -23,6 +24,9 @@ export default {
     },
     peetriIsa(){
       this.user.id = 2
+    },
+    toomas(){
+      this.user.id = 3
     }
   }
 }

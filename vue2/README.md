@@ -22,22 +22,27 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-
-
-On vaja mysql database (db.sql)
-database andmed tuleb panna faili nimega ".env" backend kaustas
-
+### dev server
+```
 dev serveri saab alustada backend kaustast
 npm run start
+```
 
-näidis .env fail:
-#-----------------
+### Customize configuration
+```
+See [Configuration Reference](https://cli.vuejs.org/config/).
+```
+
+### Database
+```
+On vaja mysql database (db.sql)
+database andmed tuleb panna faili nimega ".env" backend kaustas
+```
+
+### Näidis .env fail:
+```
 DB_HOST=localhost
 DB_USER=nrgwebuser
 DB_PASS=parool
 DB_PORT=3306
-#-----------------
+```

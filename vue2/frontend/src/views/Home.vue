@@ -9,25 +9,35 @@
 
 <script>
 // @ is an alias to /src
-//import Button from '@/components/Button.vue'
 
+import UsersRequests from  '@/requests/UsersRequests.js'
 export default {
-  props:{
-    user: Object
-  },
+  
   components: {
     //Button
   },
   methods: {
-    peeterPaan(){
-      this.user.id = 1
+    async peeterPaan(){
+      this.$session.set('user',await UsersRequests.getUserById(1))
+      this.$emit("user-changed")
     },
-    peetriIsa(){
-      this.user.id = 2
+    async peetriIsa(){
+      this.$session.set('user',await UsersRequests.getUserById(2))
+      this.$emit("user-changed")
     },
-    toomas(){
-      this.user.id = 3
+    async toomas(){
+      this.$session.set('user',await UsersRequests.getUserById(3))
+      this.$emit("user-changed")
     }
+  },
+  data: ()=>{
+    return {
+    }
+  },
+  mounted(){
+
+  },
+  computed: {
   }
 }
 </script>

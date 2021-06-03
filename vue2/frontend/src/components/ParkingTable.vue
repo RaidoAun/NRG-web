@@ -15,11 +15,11 @@
         <template #cell(index)="data">
           {{ data.index + 1 }}
         </template>
-        <template #cell(validation_status)="row" v-if="is_admin">
+        <template #cell(validation_status)="row" v-if="this.user.is_admin">
           <b-button variant = "danger" size="sm" @click="deleteRow(row)">Kustuta</b-button>
           <b-button variant = "success" size="sm" @click="editRow(row)" v-if="row.item[row.field.key] === 'kinnitamata' ? 'false' : 'true' === true">Kinnita</b-button>
         </template>
-        <template #cell(action)="row" v-if="!is_admin">
+        <template #cell(action)="row" v-if="!this.user.is_admin">
           <b-button variant = "danger" size="sm" @click="deleteRow(row)">Kustuta</b-button>
         </template>
       </b-table>
@@ -27,27 +27,23 @@
 </template>
 <script>
 import ParkingRequests from  '@/requests/ParkingRequests.js'
-import UsersRequests from  '@/requests/UsersRequests.js'
 export default {
-
-    props:{
-      user:Object,
-      filter: String
-    },
-
     data:()=> {
       return {
         fields: [],
         items: [],
-        is_admin: false
+        filter: "",
+        user: {}
       }
     },
     methods: {
-      deleteRow(row){
-        ParkingRequests.deleteRowById(row.item.id, this.user.id)
+      async deleteRow(row){
+        //TODO fix ajastus
+        await ParkingRequests.deleteRowById(row.item.id, this.user.id)
         this.getTableData()
       },
       editRow(row){
+        //TODO fix ajastus
         ParkingRequests.editRowByid(row.item.id)
         this.getTableData()
       },
@@ -67,10 +63,8 @@ export default {
         this.items = data
         },
       async init(){
-        let user = await UsersRequests.getUser(this.user)
-        if (user===undefined) return
-        if (user.is_admin === 0){
-          this.is_admin = false
+        this.user = this.$session.get('user')
+        if (this.user.is_admin === 0){
           this.fields = [
             {
               key:'index',
@@ -94,7 +88,7 @@ export default {
             }
           ]
         }
-        if (user.is_admin ===1){
+        if (this.user.is_admin ===1){
           this.is_admin = true
           this.fields = [
             {
@@ -130,6 +124,7 @@ export default {
       this.init()
       this.getTableData()
     }
+
 
 }
 </script>

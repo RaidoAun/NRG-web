@@ -41,6 +41,7 @@ app.get('/api/users', (req,res)=>{
   let user
   db.getUserById(userid,(data)=>{
     if (data.length === 0){
+      res.sendStatus(200)
       return
     }
     user = data[0]

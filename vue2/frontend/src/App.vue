@@ -1,25 +1,33 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/parkimine">Parkimine</router-link>
+    <div id="nav" v-if="this.user">
+      {{this.user.first_name + " " + this.user.last_name}} <br>
+      <router-link to="/" >Home</router-link> |
+      <router-link to="/parkimine">Parkimine</router-link> |
+      <router-link to="/päevik">Päevik</router-link>
     </div>
-    <router-view :user.sync = "user"/>
+    <router-view @user-changed = "onUserChange"/>
   </div>
 </template>
 
 <script>
-
+//{{this.user.first_name + " " + this.user.last_name}}
+import UsersRequests from  '@/requests/UsersRequests.js'
 export default {
   data: ()=>{
     return {
-      user: {id:1}
+      user: {}
     }
   },
-  components:{
+  methods: {
+    onUserChange(){
+      this.user = this.$session.get('user')
+    }
   },
-  mounted(){
-
+  async mounted(){
+    this.$session.start()
+    this.$session.set('user', await UsersRequests.getUserById(2))
+    this.user = this.$session.get('user')
   }
 }
 </script>

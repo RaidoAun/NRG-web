@@ -12,20 +12,20 @@ export default{
       })
       return data
     },
-    putCarData(data){
-      axios.put('/api/parking/addrow', data)
+    async putCarData(data){
+      await axios.put('/api/parking/addrow', data)
       .catch((error) => {
         console.log(error)
       })
     },
-    deleteRowById(row_id,user_id){
-      axios.put('/api/parking/deleterow', {row_id:row_id,user_id:user_id})
+    async deleteRowById(row_id,user_id){
+      await axios.put('/api/parking/deleterow', {row_id:row_id,user_id:user_id})
       .catch((error) => {
         console.log(error)
       })
     },
-    editRowByid(id){
-      axios.put('/api/parking/editrow', {id:id})
+    async editRowByid(id){
+      await axios.put('/api/parking/editrow', {id:id})
       .catch((error) => {
         console.log(error)
       })

@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 export default{
-    async getUser(user) {
+    async getUserById(user_id) {
       let data
-      await axios.get('/api/users', {params:{id:user.id}})
+      await axios.get('/api/users', {params:{id:user_id}})
       .then((response) => {
         data = response.data
       })

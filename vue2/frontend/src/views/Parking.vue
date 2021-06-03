@@ -8,7 +8,7 @@
             </div>
         </div>
     </div>
-    <ParkingTable :user.sync = "user" ref="parkingTable"/>
+    <ParkingTable ref="parkingTable"/>
   </div>
 </template>
 <script>
@@ -20,12 +20,8 @@ import ParkingRequests from  '@/requests/ParkingRequests.js'
 
 export default {
   components: { 
-      ParkingTable, 
-      InputForm,
-      //Button
-      },
-    props:{
-      user: Object
+    ParkingTable, 
+    InputForm,
     },
     data:()=>{
     return {
@@ -41,7 +37,7 @@ export default {
       this.addCarButtonText = this.showinputfields ? "Peida" : "Lisa auto"
     },
     sendNewCarDataToServer(data){
-      data.user_id = this.user.id
+      data.user_id = this.$session.get('user').id
       ParkingRequests.putCarData(data)
       this.$refs.parkingTable.getTableData()
     }

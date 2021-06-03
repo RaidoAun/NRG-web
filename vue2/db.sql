@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `nrgweb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `nrgweb`;
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: nrgweb
@@ -31,7 +33,7 @@ CREATE TABLE `parking` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_parking_users_idx` (`user_id`),
   CONSTRAINT `fk_parking_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +42,6 @@ CREATE TABLE `parking` (
 
 LOCK TABLES `parking` WRITE;
 /*!40000 ALTER TABLE `parking` DISABLE KEYS */;
-INSERT INTO `parking` VALUES (1,0,2,'2131231'),(2,0,2,'2131231'),(4,0,1,'eqewqeq'),(5,0,1,'eqewqeq'),(6,0,1,'eqewqeq');
 /*!40000 ALTER TABLE `parking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,6 +57,7 @@ CREATE TABLE `users` (
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `is_admin` tinyint unsigned NOT NULL,
+  `room_nr` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idusers_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -67,7 +69,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Peeter','Paan',0),(2,'Peetri','Isa',1),(3,'Toomas','Mahlane',0);
+INSERT INTO `users` VALUES (1,'Peeter','Paan',0,'300'),(2,'Peetri','Isa',1,'123'),(3,'Toomas','Mahlane',0,'234');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -80,4 +82,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-03 12:24:12
+-- Dump completed on 2021-06-03 23:15:59

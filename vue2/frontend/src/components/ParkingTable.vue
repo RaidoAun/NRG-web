@@ -10,7 +10,6 @@
             ></b-form-input>
           </b-input-group>
       </b-col>
-      {{filter}}
       <b-table striped hover :items="items" :fields="fields" :filter="filter">
         <template #cell(index)="data">
           {{ data.index + 1 }}
@@ -103,7 +102,7 @@ export default {
             },
             {
               key:'last_name',
-              label: 'Perenimi',
+              label: 'Perekonnanimi',
               sortable: true
             },
             {

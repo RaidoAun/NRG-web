@@ -20,7 +20,7 @@ const routes = [
     component: Parking
   },
   {
-    path: '/Päevik',
+    path: '/Paevik',
     name: '',
     component: Diary
   }

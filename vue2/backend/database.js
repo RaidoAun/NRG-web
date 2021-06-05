@@ -8,6 +8,10 @@ export class Database{
   parking_delete_row = "DELETE FROM parking WHERE id = ?"
   parking_edit_row = "UPDATE parking SET validation_status = 1 WHERE id = ?"
   parking_select_by_id = "select * from parking where id = ?"
+  diary_select_user_data = "select diary.id, diary.reason, diary.start, diary.end, diary.notes, users.first_name, users.last_name, users.room_nr from diary inner join users on diary.user_id = users.id where users.id = ?"
+  diary_select_all = "select diary.id, diary.reason, diary.start, diary.end, diary.notes, users.first_name, users.last_name, users.room_nr from diary inner join users on diary.user_id = users.id"
+  diary_insert_into = "INSERT INTO diary (reason, start, notes, user_id) VALUES (?)"
+  diary_edit_end = "update diary set end = ? where id = "
   constructor(){
       this.con = mysql.createConnection({
           host: process.env.DB_HOST,
@@ -18,7 +22,7 @@ export class Database{
           if (err) throw err; //kui err, siis viska ära.
           console.log("Connected!");
         });
-      this.con.query("use nrgweb",function (err, result, fields) {
+      this.con.query("use "+process.env.DB_NAME,function (err, result, fields) {
         if (err) throw err;
       });
   }
@@ -71,6 +75,31 @@ export class Database{
     this.con.query(this.parking_select_by_id, [values], function (err, result, fields) {
       if (err) throw err;
       callback(result)
+    })
+  }
+  getUserDiaryDataByUserId(id, callback){
+    let values = [id]
+    this.con.query(this.diary_select_user_data, [values], function (err, result, fields) {
+      if (err) throw err;
+      callback(result)
+    })
+  }
+  getAllDiaryData(callback){
+    this.con.query(this.diary_select_all, function (err, result, fields) {
+      if (err) throw err;
+      callback(result)
+    })
+  }
+  addToDiary(data){
+    let values = [data.reason, data.start, data.notes, data.user_id]
+    this.con.query(this.diary_insert_into, [values], function (err, result) {
+      if (err) throw err;
+    })
+  }
+  editDiaryEnd(data){
+    let values = [data.end]
+    this.con.query(this.diary_edit_end + mysql.escape(data.id), [values], function (err, result) {
+      if (err) throw err;
     })
   }
 }

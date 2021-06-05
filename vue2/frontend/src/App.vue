@@ -4,7 +4,7 @@
       {{this.user.first_name + " " + this.user.last_name}} <br>
       <router-link to="/" >Home</router-link> |
       <router-link to="/parkimine">Parkimine</router-link> |
-      <router-link to="/päevik">Päevik</router-link>
+      <router-link to="/paevik">Päevik</router-link>
     </div>
     <router-view @user-changed = "onUserChange"/>
   </div>

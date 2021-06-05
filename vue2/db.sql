@@ -18,6 +18,35 @@ USE `nrgweb`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `diary`
+--
+
+DROP TABLE IF EXISTS `diary`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `diary` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `reason` varchar(255) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime DEFAULT NULL,
+  `notes` varchar(255) NOT NULL,
+  `user_id` int unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `diary`
+--
+
+LOCK TABLES `diary` WRITE;
+/*!40000 ALTER TABLE `diary` DISABLE KEYS */;
+INSERT INTO `diary` VALUES (1,'Ühikast eemal','2021-06-09 14:26:00','2021-06-12 14:43:00','dsfsf',1);
+/*!40000 ALTER TABLE `diary` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `parking`
 --
 
@@ -33,7 +62,7 @@ CREATE TABLE `parking` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_parking_users_idx` (`user_id`),
   CONSTRAINT `fk_parking_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +71,7 @@ CREATE TABLE `parking` (
 
 LOCK TABLES `parking` WRITE;
 /*!40000 ALTER TABLE `parking` DISABLE KEYS */;
+INSERT INTO `parking` VALUES (62,1,1,'fsdfsdfsdf'),(63,1,1,'fsdfsdfsdf'),(64,1,1,'fsdfsdfsdf'),(65,0,1,'fsdfsdfsdf');
 /*!40000 ALTER TABLE `parking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,4 +112,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-03 23:15:59
+-- Dump completed on 2021-06-05 16:16:36

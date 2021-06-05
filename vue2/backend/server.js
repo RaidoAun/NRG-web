@@ -1,12 +1,13 @@
 import {Database} from './database.js'
 import express, { query } from 'express'
+
+
 const PORT = 5001
 const app = express()
 app.use(express.json())
 
 let db = new Database()
 
-//let data = [{id:0,text:"tere"}]
 
 app.get('/api/parking', (req,res)=>{
   let userid = req.query.id
@@ -88,15 +89,50 @@ app.put('/api/parking/editrow',(req,res)=>{
 app.listen(PORT, ()=>{
   console.log(`Example app listening on port ${PORT}!`)
 })
-/*
-app.post("/api/messages", (req, res) =>{
-    let msg = {}
-    msg.text = req.body.text
-    msg.id = messages.length
-    messages.push(msg)
-    res.status(201).json(msg)
-})
-app.get("/api/messages", (req, res) =>{
-    res.json(messages)
-})
-*/
+
+
+
+
+
+app.get('/api/record', function (req, res) {
+  let userid = req.query.id
+  let user
+  db.getUserById(userid,(data)=>{
+    if (data.length === 0){
+      res.status(200).send(data)
+      return
+    }
+    user = data[0]
+  if (user.is_admin === 0) {
+    db.getUserDiaryDataByUserId(user.id,(data)=>{
+      res.send(data).status(200)
+    })
+  }
+  if (user.is_admin === 1){
+    db.getAllDiaryData((data)=>{
+      res.send(data).status(200)
+    })
+  }
+  })
+});
+
+app.post('/api/record', function (req, res) {
+  db.addToDiary(req.body)
+  res.sendStatus(200)
+});
+
+app.put('/api/record/:id', function (req, res) {
+  const {id} = req.params;
+  const data = req.body
+  data.id = id
+  db.editDiaryEnd(data)
+  res.sendStatus(200)
+  /*
+  knex('diary')
+    .update(data)
+    .where({id})
+    .then(function () {
+      res.send('Success')
+    })
+    */
+});

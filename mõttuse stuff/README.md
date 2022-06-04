@@ -1,3 +1,0 @@
-# digitaalnepaevik
-
-Karl-Robert Mõttus
